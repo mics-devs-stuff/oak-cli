@@ -39,18 +39,36 @@
             "description": "Oak will run endlessly till the user will stop it"
         }
     },
+    "prompts": {
+        "error": {
+            "color": "#E07A5F",
+            "message": "ERROR!"
+        },
+        "success": {
+            "color": "#81B29A",
+            "message": "DONE!"
+        },
+        "warning": {
+            "color": "#F2CC8F",
+            "message": "WARNING!"
+        },
+        "info": {
+            "color": "#81B5D9",
+            "message": "INFO!"
+        }
+    },
     "docs": {
         "oak": {
             "name": "oak",
-            "url": ""
+            "url": "TODO"
         },
         "config": {
             "name": "configuration",
-            "url": ""
+            "url": "TODO"
         },
         "help": {
             "name": "commands",
-            "url": ""
+            "url": "TODO"
         }
     }
 }

@@ -1,8 +1,8 @@
 {
   	"name": "oak",
-  	"version": "0.1.4",
+  	"version": "0.0.3",
   	"description": "",
-  	"main": "src/main.js",
+  	"exports": "./src/main.js",
   	"scripts": {
   	  	"test": "echo \"Error: no test specified\" && exit 1"
   	},
@@ -11,7 +11,7 @@
   	  	"url": "git+https://github.com/mics-devs-stuff/oak-cli.git"
   	},
   	"keywords": [],
-  	"author": "",
+  	"author": "Michelangelo Basso",
   	"license": "ISC",
   	"bugs": {
   	  	"url": "https://github.com/mics-devs-stuff/oak-cli/issues"
@@ -20,6 +20,8 @@
   	"bin": "cli.js",
   	"dependencies": {
   	  	"arg": "^5.0.1",
+  	  	"chalk": "^5.0.1",
   	  	"esm": "^3.2.25"
-  	}
+  	},
+	"type": "module"
 }
