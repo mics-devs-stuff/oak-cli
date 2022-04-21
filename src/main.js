@@ -43,6 +43,13 @@ export async function oak(args) {
         oakService.openDocumentation(topic);
     }
 
+    if (options.help) {
+        oakService.showCommands();
+    } else if (options.version) {
+        // TODO
+        // oakService.promptVersion();
+    }
+
     /**
      * Endless feature calls recursively the main fucntion with the same args
      */
