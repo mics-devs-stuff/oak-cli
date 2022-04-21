@@ -1,4 +1,4 @@
-export default {
+{
     "name": "oak",
     "config_file": "oak.config.js",
     "templates_folder": "templates",
@@ -53,4 +53,4 @@ export default {
             "url": ""
         }
     }
-};
+}
