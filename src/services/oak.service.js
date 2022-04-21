@@ -158,7 +158,9 @@ switch (process.platform) {
  const openDocumentation = (topic) => {
     const documentation = DOCS[topic];
 
-    //Checks if the documentation topic exists
+    /**
+     * Just a check in case
+     */
     if (documentation) {
         const doc_url = documentation.url;
         const command = `${OPEN_CMD_URL} ${doc_url}`;
@@ -181,7 +183,7 @@ switch (process.platform) {
             console.error(`%s An error occurred while running the ${OPEN_CMD_URL} command`, chalk.hex(PROMPTS.error.color).bold(PROMPTS.error.message));
         }
     } else {
-        console.error(`%s Currently there's no documentation for this topic...`, chalk.hex(PROMPTS.warning.color).bold(PROMPTS.warning.message));
+        console.error(`%s Currently, there's no documentation for this ...`, chalk.hex(PROMPTS.warning.color).bold(PROMPTS.warning.message));
     }
 
     process.exit(1);
