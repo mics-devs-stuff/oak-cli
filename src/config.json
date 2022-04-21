@@ -55,6 +55,10 @@
         "info": {
             "color": "#81B5D9",
             "message": "INFO!"
+        },
+        "info2": {
+            "color": "#C087BD",
+            "message": "INFO!"
         }
     },
     "docs": {

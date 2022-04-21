@@ -9,6 +9,7 @@
 
 import arg from 'arg';
 import chalk from 'chalk';
+import table from 'text-table';
 import { exec } from 'child_process';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -124,6 +125,7 @@ switch (process.platform) {
                     break;
     
                 default:
+                    process.exit(1);
                     // LOG COMMAND NOT AVAILABLE
                     break;
             }
@@ -136,6 +138,7 @@ switch (process.platform) {
         };
     } catch (err) {
         if (err.code === 'ARG_UNKNOWN_OPTION') {
+            process.exit(1);
             // SHOULD LOG COMMAND NOT AVAILABLE
         } else {
             throw err;
@@ -145,9 +148,9 @@ switch (process.platform) {
 
 
 /** 
- * =============
- * DOCUMENTATION
- * =============
+ * =====================
+ * DOCUMENTATION & INFOS
+ * =====================
  */
 
 /**
@@ -189,7 +192,60 @@ switch (process.platform) {
     process.exit(1);
 };
 
+/**
+ * Prints all the commands options
+ * @returns void
+ */
+ const showCommands = () => {
+
+    // CONSTANTS
+    const options = config.options;
+    const args = config.args;
+
+    // VARIABLES
+    let options_rows = [];
+    let args_rows = [];
+
+
+    /**
+     * Options table build
+     */
+    Object.keys(options).forEach((option) => {
+        /**
+         * Here we build the commands from the options
+         */
+        const command = chalk.hex(PROMPTS.info.color).bold(options[option].cmd);
+        const option_description = `(${options[option].name}) ${options[option].description}`;
+
+        options_rows.push([command, option_description]);
+    });
+
+    /**
+     * Args table build
+     */
+    const args_keys = Object.keys(args);
+
+    args_keys.forEach((arg) => {
+        args_rows.push([chalk.hex(config.prompts.info2.color).bold(args[arg].cmd), `(${args[arg].name}) ${args[arg].description}`]);
+    });
+
+    /**
+     * Options table prompt
+     */
+    console.log(`\n${chalk.hex(config.prompts.info.color).inverse('OPTIONS')}`);
+    console.log(table(options_rows));
+
+    /**
+     * Args table prompt
+     */
+    console.log(`\n${chalk.hex(config.prompts.info2.color).inverse('ARGS')}`);
+    console.log(table(args_rows));
+
+    process.exit(1);
+};
+
 export default {
     parseArgs,
-    openDocumentation
+    openDocumentation,
+    showCommands
 };
