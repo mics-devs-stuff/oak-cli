@@ -16,7 +16,7 @@ import arg from 'arg';
  * ======
  */
 
-import config from '../config.js';
+import config from '../config.json';
 
 
 /**
