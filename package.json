@@ -1,0 +1,22 @@
+{
+  	"name": "oak",
+	"version": "0.1",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mics-devs-stuff/oak-cli.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/mics-devs-stuff/oak-cli/issues"
+	},
+	"homepage": "https://github.com/mics-devs-stuff/oak-cli#readme",
+	"bin": "cli.js",
+	"type": "module"
+}
