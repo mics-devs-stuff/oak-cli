@@ -1,4 +1,34 @@
+/**
+ * =========
+ * LIBRARIES
+ * =========
+ */
+import oakService from './services/oak.service.js';
+
+/**
+ * ======
+ * CONFIG
+ * ======
+ */
+
+
+/**
+ * =========
+ * CONSTANTS
+ * =========
+ */
+
+
 
 export async function oak(args) {
-    console.log(eval(args.splice(2)[0]));
+    const options = oakService.parseArgs(args);
+    console.log(options);
+
+
+    /**
+     * Endless feature calls recursively the main fucntion with the same args
+     */
+    // if (options.endless) {
+    //     oak(args);
+    // }
 }
