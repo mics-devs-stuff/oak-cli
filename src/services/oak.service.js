@@ -102,7 +102,7 @@ switch (process.platform) {
 
                     options.init = true;
                     if (args._[1]) {
-                        options.init_config = args._[1];
+                        options.config_template = args._[1];
                     }
                     break;
                 // VERSION
@@ -174,7 +174,7 @@ switch (process.platform) {
         try {
             exec(command, (err) => {
                 if (err) {
-                    console.log(`%s ${err}`, chalk.keyword(PROMPTS.error.color).bold(PROMPTS.error.message));
+                    console.log(`%s ${err}`, chalk.hex(PROMPTS.error.color).bold(PROMPTS.error.message));
                     // node couldn't execute the command
                     return;
                 }

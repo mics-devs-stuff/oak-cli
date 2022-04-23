@@ -4,6 +4,7 @@
  * =========
  */
 import oakService from './services/oak.service.js';
+import configService from './services/config.service.js';
 
 /**
  * This is because ESM doesn't support require so 
@@ -30,6 +31,15 @@ const config = require('./config.json');
 const DEFAULT_DOC = config.docs.oak.name;
 
 
+/**
+ * =========
+ * VARIABLES
+ * =========
+ */
+
+let choices = {};
+let oak_config;
+
 
 export async function oak(args) {
     const options = oakService.parseArgs(args);
@@ -49,6 +59,16 @@ export async function oak(args) {
         // TODO
         // oakService.promptVersion();
     }
+
+
+    /**
+     * OAK CONFIG INIT PROCESS
+     * Here we define the configuration init flow.
+     * First and for most, we check and obtain the configuration file.
+     * Second step is the validation with the JOI library.
+     */
+    oak_config = await configService.initConfig(options);
+
 
     /**
      * Endless feature calls recursively the main fucntion with the same args
