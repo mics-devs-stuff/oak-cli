@@ -59,6 +59,9 @@
         "info2": {
             "color": "#C087BD",
             "message": "INFO!"
+        },
+        "validation": {
+            "message": "OAK CONFIG VALIDATION"
         }
     },
     "docs": {
@@ -67,7 +70,7 @@
             "url": "TODO"
         },
         "config": {
-            "name": "configuration",
+            "name": "config",
             "url": "TODO"
         },
         "help": {
