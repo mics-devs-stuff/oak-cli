@@ -121,7 +121,7 @@ switch (process.platform) {
                 case config.options.validate.cmd:
 
                     options.validate = true;
-                    options.doc_topic = 'config';
+                    options.doc_topic = config.docs.config.name;
                     break;
     
                 default:
