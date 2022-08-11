@@ -24,6 +24,7 @@
   	  	"esm": "^3.2.25",
   	  	"joi": "^17.6.0",
   	  	"listr": "^0.14.3",
+  	  	"log-symbols": "^5.1.0",
   	  	"text-table": "^0.2.0"
   	},
   	"type": "module"
