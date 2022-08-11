@@ -5,10 +5,12 @@
  * 
  */
 import { existsSync } from 'fs';
+import logSymbols from 'log-symbols';
+import chalk from 'chalk';
 
 import fsService from './fs.service.js';
-
 import taskService from './task.service.js';
+import validationService from './validation/validation.service.js';
 /**
  * This is because ESM doesn't support require so 
  * in order to import json files it's needed
@@ -33,7 +35,10 @@ const config = require('../config.json');
 
 const __dirname = fsService.__dirname;
 const OAK_CONFIG = config.config_file;
+const MAIN_CMD = config.name;
 const OAK_CONFIG_PATH = `${process.cwd()}/${OAK_CONFIG}`;
+const PROMPTS = config.prompts;
+const OPTIONS = config.options;
 
 
 /**
@@ -96,7 +101,13 @@ const OAK_CONFIG_PATH = `${process.cwd()}/${OAK_CONFIG}`;
     }
 
     if (config_exists) {
-        config = import(OAK_CONFIG_PATH);
+        config = await import(OAK_CONFIG_PATH);
+        /**
+         * Spicy one: Basically, if we want to maintain the configuration file as a node module export,
+         * when retrieving it dynamically from the current working directory, we need to take the whole configuration from
+         * the 'default' attribute. Still don't know why, but since it works...
+         */
+        config = config.default;
     } else {
         /**
          * TODO
@@ -107,6 +118,34 @@ const OAK_CONFIG_PATH = `${process.cwd()}/${OAK_CONFIG}`;
     return config;
 };
 
+/**
+ * Validates the config
+ * @param {object} config the configuration object
+ * @param {boolean} details a detailed prompt of errors (used fot the specific validation command)
+ */
+ const validate = (config, details) => {
+    const validation = validationService.validateSchema(config, details);
+
+    if (validation.error) {
+        console.log(chalk.hex(PROMPTS.warning.color).bold(`\n${PROMPTS.validation.message}\n`));
+     
+        validation.error.details.forEach((error) => {
+           console.log(`%s ${error.message}\n`, chalk.hex(PROMPTS.error.color).bold(PROMPTS.error.message));
+        });
+     
+        if (!details) {
+           console.log(`%s For a detailed validation you can use "${MAIN_CMD} ${OPTIONS.validate.cmd}"\n`, chalk.hex(PROMPTS.info.color).bold(PROMPTS.info.message));
+        }
+     
+        process.exit(1);
+    }
+
+    if (details) {
+        const success_message = `${PROMPTS.validation.message} ${PROMPTS.success.message}\n`;
+        console.log(`\n${logSymbols.success}`, chalk.hex(PROMPTS.success.color).bold(success_message));
+        process.exit(1);
+    }
+};
 
 /**
  * Gets the directories inside the templates folder
@@ -123,5 +162,6 @@ const OAK_CONFIG_PATH = `${process.cwd()}/${OAK_CONFIG}`;
 
 export default {
     initConfig,
+    validate,
     getConfigTemplatesNames
 };

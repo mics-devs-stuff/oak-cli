@@ -64,11 +64,17 @@ export async function oak(args) {
     /**
      * OAK CONFIG INIT PROCESS
      * Here we define the configuration init flow.
-     * First and for most, we check and obtain the configuration file.
+     * First and foremost, we check and obtain the configuration file.
      * Second step is the validation with the JOI library.
      */
     oak_config = await configService.initConfig(options);
 
+    // CONFIG VALIDATION
+    if (options.validate) {
+        configService.validate(oak_config, true);
+    } else {
+        configService.validate(oak_config);
+    }
 
     /**
      * Endless feature calls recursively the main fucntion with the same args
