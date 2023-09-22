@@ -51,13 +51,10 @@ export async function oak(args) {
         const topic = options.doc_topic || DEFAULT_DOC;
 
         oakService.openDocumentation(topic);
-    }
-
-    if (options.help) {
+    } else if (options.help) {
         oakService.showCommands();
     } else if (options.version) {
-        // TODO
-        // oakService.promptVersion();
+        oakService.promptVersion();
     }
 
 
