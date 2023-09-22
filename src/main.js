@@ -3,7 +3,7 @@
  * LIBRARIES
  * =========
  */
-import oakService from './services/oak.service.js';
+import oakService from './services/oak/core.service.js';
 import configService from './services/config.service.js';
 
 /**
