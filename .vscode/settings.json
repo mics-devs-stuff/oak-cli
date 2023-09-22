@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
         "Config",
-        "Schema Validation"
+        "Schema Validation",
+        "Commands"
     ]
 }
