@@ -7,6 +7,8 @@
  * such as the arguments and options parsing and management of trees, nodes and leafs.
  */
 
+// TODO Rename this file to core.service.js and put this and the help one in a folder called oak
+
 import arg from 'arg';
 import chalk from 'chalk';
 import table from 'text-table';
@@ -148,7 +150,7 @@ switch (process.platform) {
     }
 };
 
-
+// TODO MOVE DOCS AND INFO IN help.service.js
 /** 
  * =====================
  * DOCUMENTATION & INFOS
