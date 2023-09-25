@@ -3,7 +3,8 @@
  * LIBRARIES
  * =========
  */
-import oakService from './services/oak.service.js';
+import core from './services/oak/core.service.js';
+import helpService from './services/oak/help.service.js';
 import configService from './services/config.service.js';
 
 /**
@@ -42,7 +43,7 @@ let oak_config;
 
 
 export async function oak(args) {
-    const options = oakService.parseArgs(args);
+    const options = core.parseArgs(args);
 
     /**
      * First see if the user wants to check the documentation
@@ -50,11 +51,11 @@ export async function oak(args) {
     if (options.check_docs) {
         const topic = options.doc_topic || DEFAULT_DOC;
 
-        oakService.openDocumentation(topic);
+        helpService.openDocumentation(topic);
     } else if (options.help) {
-        oakService.showCommands();
+        helpService.showCommands();
     } else if (options.version) {
-        oakService.promptVersion();
+        helpService.promptVersion();
     }
 
 
