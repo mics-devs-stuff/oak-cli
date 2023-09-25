@@ -4,7 +4,12 @@ import table from 'text-table';
 import { exec } from 'child_process';
 import { config, package_json } from './core.service.js';
 
-
+/**
+ * ======
+ * CONSTANTS
+ * ======
+ */
+const PROMPTS = config.prompts;
 
 /** 
  * =====================
