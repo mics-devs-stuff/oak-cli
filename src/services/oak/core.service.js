@@ -11,13 +11,6 @@
 import arg from 'arg';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-import helpService from './help.service.js';
-
-const {
-    openDocumentation, 
-    promptVersion, 
-    showCommands 
-} = helpService;
 
 /**
  * ======
@@ -152,8 +145,5 @@ switch (process.platform) {
 
 
 export default {
-    parseArgs,
-    openDocumentation, 
-    promptVersion, 
-    showCommands
+    parseArgs
 };
