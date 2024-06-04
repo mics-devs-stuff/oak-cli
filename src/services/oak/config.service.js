@@ -8,9 +8,9 @@ import { existsSync } from 'fs';
 import logSymbols from 'log-symbols';
 import chalk from 'chalk';
 
-import fsService from './fs.service.js';
+import fsService from '../utils/fs.service.js';
 import taskService from './task.service.js';
-import validationService from './validation/validation.service.js';
+import validationService from '../validation/validation.service.js';
 /**
  * This is because ESM doesn't support require so 
  * in order to import json files it's needed
@@ -24,7 +24,7 @@ const require = createRequire(import.meta.url);
  * ======
  */
 
-const config = require('../config.json');
+const config = require('../../config.json');
 
 
 /**
@@ -161,6 +161,7 @@ const OPTIONS = config.options;
 };
 
 export default {
+    config,
     initConfig,
     validate,
     getConfigTemplatesNames

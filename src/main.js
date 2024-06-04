@@ -3,16 +3,10 @@
  * LIBRARIES
  * =========
  */
+import configService from './services/oak/config.service.js';
 import core from './services/oak/core.service.js';
-import helpService from './services/oak/help.service.js';
-import configService from './services/config.service.js';
-
-/**
- * This is because ESM doesn't support require so 
- * in order to import json files it's needed
- */
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
+import helpService from './services/info/help.service.js';
+import taskService from './services/oak/task.service.js';
 
 /**
  * ======
@@ -20,8 +14,7 @@ const require = createRequire(import.meta.url);
  * ======
  */
 
-const config = require('./config.json');
-
+const config = configService.config;
 
 /**
  * =========
@@ -38,12 +31,12 @@ const DEFAULT_DOC = config.docs.oak.name;
  * =========
  */
 
-let choices = {};
+const choices = {};
 let oak_config;
 
 
 export async function oak(args) {
-    const options = core.parseArgs(args);
+    let options = core.parseArgs(args);
 
     /**
      * First see if the user wants to check the documentation
@@ -75,9 +68,31 @@ export async function oak(args) {
     }
 
     /**
-     * Endless feature calls recursively the main fucntion with the same args
+     * Questions
      */
-    // if (options.endless) {
-    //     oak(args);
-    // }
+    
+    // TREE
+    options = await core.chooseTree(oak_config.trees, choices, options);
+    
+    options = await core.chooseLeaf(choices, options);
+
+    // COMMAND BUILD
+    let command;
+    if (choices.leaf.build_nodes_path) {
+        command = core.buildCommand(choices, options);
+    } else {
+        const command_options = choices.leaf.options;
+        command = choices.leaf.script + (command_options && command_options.length ? ` ${command_options.join(' ')}` : '');
+    }
+    
+    // COMMAND EXECUTION
+    await taskService.execute(command, options, oak_config);
+
+    /**
+     * Endlessly calls the main fucntion with the same args
+     */
+    if (options.endless) {
+        choices = {};
+        oak(args);
+    }
 }

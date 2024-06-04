@@ -11,6 +11,8 @@ const leafValidator = Joi.array().items(
         script: 
             Joi.string()
                 .required(),
+        build_nodes_path:
+            Joi.boolean(),
         options: [
             Joi.array().items(
                 Joi.string()
@@ -22,10 +24,10 @@ const leafValidator = Joi.array().items(
 );
 /**
  * Since the nodes can have a recursive object hierarchy, we need to make sure to declare
- * a fucntion to recursively retrieve the validation schema.
+ * a function to recursively retrieve the validation schema.
  * @returns {JOI.ObjectSchema<any>} The Joi node object recursive validation.
  */
-const nodesValidator = Joi.object().pattern(/^/,
+const nodesValidator = Joi.array().items(
         Joi.object({
             name: Joi.string()
                 .required(),
@@ -33,19 +35,14 @@ const nodesValidator = Joi.object().pattern(/^/,
                 .required(),
             leafs: leafValidator,
             nodes: Joi.link('#node'),
-        }).nand('leafs', 'nodes')
+        }).xor('leafs', 'nodes').required()
     ).id('node');
-
-
 
 
 /**
  * Returns the full config validation schema for the JOI library.
  */
 export default Joi.object({
-    question: 
-        Joi.string()
-            .empty(),
     trees: 
         Joi.array().items(
             Joi.object({
@@ -57,6 +54,28 @@ export default Joi.object({
                         .required(),
                 nodes: nodesValidator
                     .required(),
+            })
+        ),
+    pre_scripts: 
+        Joi.array().items(
+            Joi.object({
+                name: 
+                    Joi.string()
+                        .required(),
+                script: 
+                    Joi.string()
+                        .required(),
+            })
+        ),
+    post_scripts: 
+        Joi.array().items(
+            Joi.object({
+                name: 
+                    Joi.string()
+                        .required(),
+                script: 
+                    Joi.string()
+                        .required(),
             })
         )
 });
