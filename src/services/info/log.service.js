@@ -29,13 +29,11 @@ const commandNotAvailable = () => {
 };
 
 /**
- * Notifies the user that there are no features to select
- * @param {string} relative_path the relative path used for directories listing
+ * Notifies the user that there are no trees to select
  * @returns void
  */
-const noFeatures = (relative_path) => {
-   console.log(`%s Looks like there are no features folders to select\n`, chalk.hex(PROMPTS.warning.color).bold(PROMPTS.warning.message));
-   console.log(`Relative path: ${relative_path}\n`);
+const noTrees = () => {
+   console.log(`%s Looks like there are no trees to select inside the config\n`, chalk.hex(PROMPTS.warning.color).bold(PROMPTS.warning.message));
    process.exit(1);
 };
 
@@ -111,7 +109,7 @@ const validationSucceeded = () => {
 
 export default {
    errors: {
-      noFeatures,
+      noTrees,
       commandNotAvailable,
       configValidationError,
       optionsIsNotAnArray

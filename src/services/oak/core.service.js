@@ -7,15 +7,10 @@
  * such as the arguments and options parsing and management of trees, nodes and leafs.
  */
 
-/**
- * TODO 
- * - import logService
- * - add logs across all file
- */
-
 import arg from 'arg';
 import inquirer from 'inquirer';
 import { createRequire } from 'module';
+import logService from '../info/log.service.js';
 
 const require = createRequire(import.meta.url);
 
@@ -127,7 +122,7 @@ const parseArgs = (raw_args) => {
                     break;
 
                 default:
-                    // logService.errors.commandNotAvailable();
+                    logService.errors.commandNotAvailable();
                     break;
             }
         }
@@ -139,7 +134,7 @@ const parseArgs = (raw_args) => {
         };
     } catch (err) {
         if (err.code === 'ARG_UNKNOWN_OPTION') {
-            // logService.errors.commandNotAvailable();
+            logService.errors.commandNotAvailable();
         } else {
             throw err;
         }
@@ -191,10 +186,8 @@ async function chooseTree(config_trees, choices, options) {
      */
     choices.tree = getSelectedChoiceObject(options.tree || answers.tree, config_trees);
 
-    if (choices.tree === undefined) {
-        // LOG SERVICE tree not found
-        console.log('tree not found');
-        process.exit(1);
+    if (choices.tree === undefined || !choices.tree.length) {
+        logService.errors.noTrees();
     }
 
     return {
