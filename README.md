@@ -1,16 +1,12 @@
-```markdown
 # Oak CLI
-================
 
 Oak is a Node CLI application that provides a set of commands to manage and validate configuration files.
 
 ## Getting Started
----------------
 
 To get started with Oak, you'll need to initialize the configuration file using the `init` command.
 
 ## Installation
----------------
 
 ```bash
 npm i oak-cli
@@ -37,7 +33,6 @@ oak v
 This should display the version of Oak that you just installed + the packages.
 
 ## Commands
-------------
 
 ### Init
 
@@ -72,7 +67,6 @@ oak validate
 ```
 
 ## Arguments
--------------
 
 ### --doc (-d)
 
@@ -91,7 +85,6 @@ oak --endless
 ```
 
 ## Prompts
-------------
 
 Oak uses the following prompts to provide feedback to the user:
 
@@ -103,7 +96,6 @@ Oak uses the following prompts to provide feedback to the user:
 * **Validation**: `OAK CONFIG VALIDATION`
 
 ## Documentation
-----------------
 
 You can access the Oak documentation using the `--doc` argument. Currently, the following topics are available:
 
@@ -111,32 +103,26 @@ You can access the Oak documentation using the `--doc` argument. Currently, the 
 * [Config](https://example.com/config-docs)
 
 ## License
----------
 
 Oak is licensed under the MIT License.
 
 ## Contributing
---------------
 
 Contributions are welcome! Please open an issue or submit a pull request to contribute to Oak.
 
 
 ## Issues
----------
 
 If you encounter any issues or have questions, please open an issue on GitHub.
 
 ## Changelog
-------------
 
 See the [CHANGELOG](CHANGELOG.md) for a list of changes.
 
 ## Code of Conduct
------------------
 
 Oak adheres to the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).
 
 ## Contact
----------
 
 If you have any questions or need help, please contact us at [michelangelobasso.dev@gmail.com](mailto:michelangelobasso.dev@gmail.com).
