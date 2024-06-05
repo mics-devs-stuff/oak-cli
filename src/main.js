@@ -3,6 +3,7 @@
  * LIBRARIES
  * =========
  */
+import logService from './services/info/log.service.js';
 import core from './services/oak/core.service.js';
 import { config } from './services/oak/core.service.js';
 import configService from './services/oak/config.service.js';

@@ -316,51 +316,48 @@ async function chooseLeaf(choices, options) {
     };
 }
 
+const getNodesPath = (choices) => {
+    let path = '';
+    let level = 0;
+    while (choices[`node_${level}`]) {
+        path += `${choices[`node_${level}`].folder.trim()}/`;
+        level++;
+    }
+    return path.slice(0, -1);
+};
+
 /**
  * Build the final command to execute
  * @param {object} choices the user object choices
- * @param {object} options the selected options
  * @returns the command string to execute
  */
-const buildCommand = (choices, options) => {
+const buildCommand = (choices) => {
     let command;
-
-    command = `${choices.schematic.script} ${choices.schematic.schematic} ${generation_path}`;
+    const generation_path = `${choices.tree.path.trim()}/${getNodesPath(choices)}/${choices.leaf.folder ? choices.leaf.folder.trim() : ''}`
+    command = `${choices.leaf.script} ${generation_path}`;
 
     /**
-     * Checks the existance of the schematic options and builds the command string
+     * Checks the existance of the options and builds the command string
      */
-    if (choices.schematic.options) {
+    if (choices.leaf.options) {
         let script_options = [];
 
-        if (typeof choices.schematic.options === "function") {
-            script_options = choices.schematic.options(options);
+        // ? To implement
+        // if (typeof choices.schematic.options === "function") {
+        //     script_options = choices.schematic.options(options);
 
-            if (!Array.isArray(script_options)) {
-                logService.errors.optionsIsNotAnArray();
-            }
-        } else if (
-            Array.isArray(choices.schematic.options) &&
-            choices.schematic.options.length
-        ) {
-            script_options = choices.schematic.options;
-        }
-
+        //     if (!Array.isArray(script_options)) {
+        //         logService.errors.optionsIsNotAnArray();
+        //     }
+        // } else
         if (
-            choices.schematic.label === "component" ||
-            choices.schematic.label === "pipe"
+            Array.isArray(choices.leaf.options) &&
+            choices.leaf.options.length
         ) {
-            command += ` --path=${generation_path
-                .split("/")
-                .slice(0, -1)
-                .join("/")} `;
-            command = command.replace(
-                generation_path,
-                generation_path.split("/").pop()
-            );
+            script_options = choices.leaf.options;
         }
 
-        const string_options = script_options.join(" ");
+        const string_options = script_options.join(' ');
         command += ` ${string_options}`;
     }
 

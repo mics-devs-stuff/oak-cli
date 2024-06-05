@@ -14,28 +14,28 @@ const config = {
     trees: [{
         name: 'project1',
         path: 'path/to/the/project', // must end with no slash...
-        nodes: {
-            node_1: [
-                {
-                    name: 'node 1',
-                    folder: 'node-1-folder',
-                    leafs: [
-                        {
-                            name: 'leaf1-of-node-1',
-                            script: 'echo hello from node 1',
-                            folder: 'leaf-folder',
-                            build_nodes_path: true,
-                            /**
-                             * Can also be present a function that takes one argument, which is the oak object.
-                             * and returns the full command to execute.
-                             */
-                            options: ['--project=something']
-                        }
-                    ],
-
-                }
-            ]
-        }
+        nodes: [
+            {
+                name: 'node 1',
+                folder: 'node-1-folder',
+                leafs: [
+                    {
+                        name: 'leaf1-of-node-1',
+                        script: 'echo "hello from node 1" >',
+                        folder: 'leaf1-folder',
+                        build_nodes_path: true,
+                        options: ['--project=something']
+                    },
+                    {
+                        name: 'leaf2-of-node-1',
+                        script: 'echo hello from node 2',
+                        folder: 'leaf2-folder',
+                        build_nodes_path: false,
+                        options: ['--force']
+                    }
+                ],
+            }
+        ]
     }],
 };
 
