@@ -4,12 +4,19 @@
  */
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
-import oakService from '../oak/core.service';
-import configService from '../oak/config.service';
+/**
+ * This is because ESM doesn't support require so 
+ * in order to import json files it's needed
+ */
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
-const config = configService.config;
-
-//CONSTANTS
+/**
+ * =========
+ * CONSTANTS
+ * =========
+ */
+const config            = require('../../config.json');
 const PROMPTS           = config.prompts;
 const OPTIONS           = config.options;
 const MOLE              = config.name;
