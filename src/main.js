@@ -3,18 +3,11 @@
  * LIBRARIES
  * =========
  */
-import configService from './services/oak/config.service.js';
 import core from './services/oak/core.service.js';
+import { config } from './services/oak/core.service.js';
+import configService from './services/oak/config.service.js';
 import helpService from './services/info/help.service.js';
 import taskService from './services/oak/task.service.js';
-
-/**
- * ======
- * CONFIG
- * ======
- */
-
-const config = configService.config;
 
 /**
  * =========

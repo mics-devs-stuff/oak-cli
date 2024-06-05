@@ -7,16 +7,15 @@
  * such as the arguments and options parsing and management of trees, nodes and leafs.
  */
 
-import arg from 'arg';
-import inquirer from 'inquirer';
-import { createRequire } from 'module';
-
 /**
  * TODO 
  * - import logService
- * - manage config json dispatch
  * - add logs across all file
  */
+
+import arg from 'arg';
+import inquirer from 'inquirer';
+import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
 

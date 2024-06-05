@@ -72,10 +72,6 @@
         "config": {
             "name": "config",
             "url": "TODO"
-        },
-        "help": {
-            "name": "commands",
-            "url": "TODO"
         }
     }
 }
