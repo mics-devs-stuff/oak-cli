@@ -1,26 +1,21 @@
-//____________________ERROR SERVICE____________________
 /**
- * Groups up warning and error messages
+ * ============
+ * LOG SERVICE
+ * ============
  */
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
-/**
- * This is because ESM doesn't support require so 
- * in order to import json files it's needed
- */
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import { config } from '../oak/core.service.js';
 
 /**
  * =========
  * CONSTANTS
  * =========
  */
-const config            = require('../../config.json');
-const PROMPTS           = config.prompts;
-const OPTIONS           = config.options;
-const MOLE              = config.name;
-const MOLE_CONFIG_FILE  = config.config_file;
+const PROMPTS              = config.prompts;
+const OPTIONS              = config.options;
+const OAK                  = config.name;
+const OAK_CONFIG_FILE      = config.config_file;
 
 //ERRORS & WARNINGS
 /**
@@ -29,18 +24,16 @@ const MOLE_CONFIG_FILE  = config.config_file;
  */
 const commandNotAvailable = () => {
    console.log(`\n%s That's not the right command, sorry...`, chalk.hex(PROMPTS.warning.color).bold(PROMPTS.warning.message));
-   console.log(`You can see the list of all available commands using \'${MOLE} ${OPTIONS.help.alias}\' or \'${MOLE} ${OPTIONS.help.cmd}\'\n`);
+   console.log(`You can see the list of all available commands using \'${OAK} ${OPTIONS.help.alias}\' or \'${OAK} ${OPTIONS.help.cmd}\'\n`);
    process.exit(1);
 };
 
 /**
- * Notifies the user that there are no features to select
- * @param {string} relative_path the relative path used for directories listing
+ * Notifies the user that there are no trees to select
  * @returns void
  */
-const noFeatures = (relative_path) => {
-   console.log(`%s Looks like there are no features folders to select\n`, chalk.hex(PROMPTS.warning.color).bold(PROMPTS.warning.message));
-   console.log(`Relative path: ${relative_path}\n`);
+const noTrees = () => {
+   console.log(`%s Looks like there are no trees to select inside the config\n`, chalk.hex(PROMPTS.warning.color).bold(PROMPTS.warning.message));
    process.exit(1);
 };
 
@@ -58,7 +51,7 @@ const configValidationError = (errors, is_detailed) => {
    });
 
    if (!is_detailed) {
-      console.log(`%s For a more detailed validation you can use "${MOLE} ${OPTIONS.config.cmd}"\n`, chalk.hex(PROMPTS.info.color).bold(PROMPTS.info.message));
+      console.log(`%s For a more detailed validation you can use "${OAK} ${OPTIONS.config.cmd}"\n`, chalk.hex(PROMPTS.info.color).bold(PROMPTS.info.message));
    }
 
    process.exit(1);
@@ -79,7 +72,7 @@ const optionsIsNotAnArray = () => {
  */
 const configAlreadyPresent = () => {
    console.log(`\n%s There's already a configuration file out there!`, chalk.hex(PROMPTS.info.color).bold(PROMPTS.info.message));
-   console.log(`If you want to remove it, use \'${chalk.bold(`rm ${MOLE_CONFIG_FILE}`)}\', and just obliterate it!\n`);
+   console.log(`If you want to remove it, use \'${chalk.bold(`rm ${OAK_CONFIG_FILE}`)}\', and just obliterate it!\n`);
    process.exit(1);
 };
 
@@ -93,6 +86,7 @@ const noConfigFile = () => {
    process.exit(1);
 };
 
+// ? Future implementation
 /**
  * Notifies the user that the custom configuration file is not present
  * @param {string} config_name the config file name
@@ -115,7 +109,7 @@ const validationSucceeded = () => {
 
 export default {
    errors: {
-      noFeatures,
+      noTrees,
       commandNotAvailable,
       configValidationError,
       optionsIsNotAnArray

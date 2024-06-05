@@ -3,18 +3,12 @@
  * LIBRARIES
  * =========
  */
-import configService from './services/oak/config.service.js';
+import logService from './services/info/log.service.js';
 import core from './services/oak/core.service.js';
+import { config } from './services/oak/core.service.js';
+import configService from './services/oak/config.service.js';
 import helpService from './services/info/help.service.js';
 import taskService from './services/oak/task.service.js';
-
-/**
- * ======
- * CONFIG
- * ======
- */
-
-const config = configService.config;
 
 /**
  * =========
@@ -59,12 +53,6 @@ export async function oak(args) {
      * Second step is the validation with the JOI library.
      */
     oak_config = await configService.initConfig(options);
-
-    if (!oak_config) {
-        // logService.info.noConfigFile();
-        console.log('no config');
-        process.exit(1);
-    }
 
     // CONFIG VALIDATION
     if (options.validate) {

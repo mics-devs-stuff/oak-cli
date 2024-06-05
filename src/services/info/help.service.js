@@ -2,21 +2,8 @@ import chalk from 'chalk';
 import cfonts from 'cfonts';
 import table from 'text-table';
 import { exec } from 'child_process';
-import { package_json } from '../oak/core.service.js';
+import { package_json, config } from '../oak/core.service.js';
 
-/**
- * This is because ESM doesn't support require so 
- * in order to import json files it's needed
- */
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-
-/**
- * ======
- * CONSTANTS
- * ======
- */
-const config = require('../../config.json');
 const PROMPTS = config.prompts;
 
 /** 

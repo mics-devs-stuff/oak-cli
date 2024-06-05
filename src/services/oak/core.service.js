@@ -10,13 +10,7 @@
 import arg from 'arg';
 import inquirer from 'inquirer';
 import { createRequire } from 'module';
-
-/**
- * TODO 
- * - import logService
- * - manage config json dispatch
- * - add logs across all file
- */
+import logService from '../info/log.service.js';
 
 const require = createRequire(import.meta.url);
 
@@ -128,7 +122,7 @@ const parseArgs = (raw_args) => {
                     break;
 
                 default:
-                    // logService.errors.commandNotAvailable();
+                    logService.errors.commandNotAvailable();
                     break;
             }
         }
@@ -140,7 +134,7 @@ const parseArgs = (raw_args) => {
         };
     } catch (err) {
         if (err.code === 'ARG_UNKNOWN_OPTION') {
-            // logService.errors.commandNotAvailable();
+            logService.errors.commandNotAvailable();
         } else {
             throw err;
         }
@@ -168,6 +162,11 @@ const getSelectedChoiceObject = (selected, choices) => {
  * @returns the option object with the tree
  */
 async function chooseTree(config_trees, choices, options) {
+
+    if (config_trees === undefined || !config_trees.length) {
+        logService.errors.noTrees();
+    }
+    
     let trees = [];
     config_trees.forEach((tree) => {
         trees.push(tree.name);
@@ -191,12 +190,6 @@ async function chooseTree(config_trees, choices, options) {
      * Retrieves the full object from the trees array
      */
     choices.tree = getSelectedChoiceObject(options.tree || answers.tree, config_trees);
-
-    if (choices.tree === undefined) {
-        // LOG SERVICE tree not found
-        console.log('tree not found');
-        process.exit(1);
-    }
 
     return {
         ...options,
@@ -317,51 +310,48 @@ async function chooseLeaf(choices, options) {
     };
 }
 
+const getNodesPath = (choices) => {
+    let path = '';
+    let level = 0;
+    while (choices[`node_${level}`]) {
+        path += `${choices[`node_${level}`].folder.trim()}/`;
+        level++;
+    }
+    return path.slice(0, -1);
+};
+
 /**
  * Build the final command to execute
  * @param {object} choices the user object choices
- * @param {object} options the selected options
  * @returns the command string to execute
  */
-const buildCommand = (choices, options) => {
+const buildCommand = (choices) => {
     let command;
-
-    command = `${choices.schematic.script} ${choices.schematic.schematic} ${generation_path}`;
+    const generation_path = `${choices.tree.path.trim()}/${getNodesPath(choices)}/${choices.leaf.folder ? choices.leaf.folder.trim() : ''}`
+    command = `${choices.leaf.script} ${generation_path}`;
 
     /**
-     * Checks the existance of the schematic options and builds the command string
+     * Checks the existance of the options and builds the command string
      */
-    if (choices.schematic.options) {
+    if (choices.leaf.options) {
         let script_options = [];
 
-        if (typeof choices.schematic.options === "function") {
-            script_options = choices.schematic.options(options);
+        // ? To implement
+        // if (typeof choices.schematic.options === "function") {
+        //     script_options = choices.schematic.options(options);
 
-            if (!Array.isArray(script_options)) {
-                logService.errors.optionsIsNotAnArray();
-            }
-        } else if (
-            Array.isArray(choices.schematic.options) &&
-            choices.schematic.options.length
-        ) {
-            script_options = choices.schematic.options;
-        }
-
+        //     if (!Array.isArray(script_options)) {
+        //         logService.errors.optionsIsNotAnArray();
+        //     }
+        // } else
         if (
-            choices.schematic.label === "component" ||
-            choices.schematic.label === "pipe"
+            Array.isArray(choices.leaf.options) &&
+            choices.leaf.options.length
         ) {
-            command += ` --path=${generation_path
-                .split("/")
-                .slice(0, -1)
-                .join("/")} `;
-            command = command.replace(
-                generation_path,
-                generation_path.split("/").pop()
-            );
+            script_options = choices.leaf.options;
         }
 
-        const string_options = script_options.join(" ");
+        const string_options = script_options.join(' ');
         command += ` ${string_options}`;
     }
 

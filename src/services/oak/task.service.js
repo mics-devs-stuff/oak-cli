@@ -12,20 +12,13 @@ import { execaCommandSync } from 'execa';
 import { promisify } from 'util';
 
 import fsService from '../utils/fs.service.js';
-
-/**
- * This is because ESM doesn't support require so 
- * in order to import json files it's needed
- */
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import { config } from '../oak/core.service.js';
 
 /**
  * =========
  * CONSTANTS
  * =========
  */
-const config = require('../../config.json');
 const __dirname             = fsService.__dirname;
 const access                = promisify(fs.access);
 const TEMPLATES_FOLDER      = config.templates_folder;
@@ -49,7 +42,7 @@ async function startConfigCopy(config_file) {
 
     const config_path = path.resolve(
         __dirname,
-        `../../${TEMPLATES_FOLDER}/${config_file}`
+        `../../../${TEMPLATES_FOLDER}/${config_file}`
     );
 
     try {
