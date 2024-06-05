@@ -12,6 +12,7 @@ import fsService from '../utils/fs.service.js';
 import taskService from './task.service.js';
 import { config } from './core.service.js';
 import validationService from '../validation/validation.service.js';
+import logService from '../info/log.service.js';
 
 /**
  * =========
@@ -25,15 +26,6 @@ const MAIN_CMD = config.name;
 const OAK_CONFIG_PATH = `${process.cwd()}/${OAK_CONFIG}`;
 const PROMPTS = config.prompts;
 const OPTIONS = config.options;
-
-
-/**
- * =========
- * VARIABLES
- * =========
- */
-
-
 
 /**
  * ================================
@@ -67,11 +59,7 @@ const OPTIONS = config.options;
             if (config_names.includes(options.config_template)) {
                 await taskService.startConfigCopy(`${options.config_template}/${OAK_CONFIG}`);
             } else {
-                /**
-                 * TODO
-                 * Log an no-custom-config-file message
-                 */
-                process.exit(1);
+                logService.info.noCustomConfigFile();
             }
         } else {
             await taskService.startConfigCopy(OAK_CONFIG);
@@ -79,11 +67,7 @@ const OPTIONS = config.options;
 
         process.exit(1);
     } else if (options.init && config_exists){
-        /**
-         * TODO
-         * Log an already-present-config-file message
-         */
-        process.exit(1);
+        logService.info.configAlreadyPresent();
     }
 
     if (config_exists) {
@@ -95,10 +79,7 @@ const OPTIONS = config.options;
          */
         config = config.default;
     } else {
-        /**
-         * TODO
-         * Log a no-config-file message
-         */
+        logService.info.noConfigFile();
     }
 
     return config;

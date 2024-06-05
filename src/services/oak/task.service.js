@@ -42,7 +42,7 @@ async function startConfigCopy(config_file) {
 
     const config_path = path.resolve(
         __dirname,
-        `../../${TEMPLATES_FOLDER}/${config_file}`
+        `../../../${TEMPLATES_FOLDER}/${config_file}`
     );
 
     try {
