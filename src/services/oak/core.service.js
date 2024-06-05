@@ -162,6 +162,11 @@ const getSelectedChoiceObject = (selected, choices) => {
  * @returns the option object with the tree
  */
 async function chooseTree(config_trees, choices, options) {
+
+    if (config_trees === undefined || !config_trees.length) {
+        logService.errors.noTrees();
+    }
+    
     let trees = [];
     config_trees.forEach((tree) => {
         trees.push(tree.name);
@@ -185,10 +190,6 @@ async function chooseTree(config_trees, choices, options) {
      * Retrieves the full object from the trees array
      */
     choices.tree = getSelectedChoiceObject(options.tree || answers.tree, config_trees);
-
-    if (choices.tree === undefined || !choices.tree.length) {
-        logService.errors.noTrees();
-    }
 
     return {
         ...options,
