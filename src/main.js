@@ -60,6 +60,12 @@ export async function oak(args) {
      */
     oak_config = await configService.initConfig(options);
 
+    if (!oak_config) {
+        // logService.info.noConfigFile();
+        console.log('no config');
+        process.exit(1);
+    }
+
     // CONFIG VALIDATION
     if (options.validate) {
         configService.validate(oak_config, true);

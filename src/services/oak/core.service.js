@@ -36,6 +36,7 @@ export const config = require('../../config.json');
  */
 
 const CONFIG_ARGS = config.args;
+const TEMPLATES_FOLDER = config.templates_folder;
 
 /**
  * =========
@@ -368,10 +369,21 @@ const buildCommand = (choices, options) => {
 };
 
 
+/**
+ * Gets all the oak configs names
+ * FUTURE IMPLEMENTATION
+ */
+const getConfigsNames = () => {
+    const config_path = path.resolve(__dirname, `../../../${TEMPLATES_FOLDER}`);
+  
+    return fsService.getDirectories(config_path);
+};
+
 export default {
     parseArgs,
     getSelectedChoiceObject,
     chooseTree,
     chooseLeaf,
-    buildCommand
+    buildCommand,
+    getConfigsNames
 };
