@@ -1,6 +1,6 @@
 {
-  	"name": "oak",
-  	"version": "0.8.0",
+  	"name": "oak-cli",
+  	"version": "0.9.0",
   	"description": "Oak CLI, a tool for your codebase <3",
   	"exports": "./src/main.js",
   	"scripts": {
