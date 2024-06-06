@@ -3,6 +3,9 @@
   	"version": "0.9.3",
   	"description": "Oak CLI, a tool for your codebase <3",
   	"exports": "./src/main.js",
+	"bin": {
+        "oak": "./cli.js"
+    },
   	"scripts": {
   	  	"test": "echo \"Error: no test specified\" && exit 1"
   	},
@@ -17,7 +20,6 @@
   	  	"url": "https://github.com/mics-devs-stuff/oak-cli/issues"
   	},
   	"homepage": "https://github.com/mics-devs-stuff/oak-cli#readme",
-  	"bin": "cli.js",
   	"dependencies": {
   	  	"arg": "^5.0.1",
   	  	"cfonts": "^3.2.0",
