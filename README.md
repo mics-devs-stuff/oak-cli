@@ -9,7 +9,7 @@ To get started with Oak, you'll need to initialize the configuration file using 
 ## Installation
 
 ```bash
-npm i oak-cli
+npm i oakcli
 npm link
 ```
 This will let you use the oak command. note that anytime you're gonna to make a `npm i` you need to make another `npm link`.
