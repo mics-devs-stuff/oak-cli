@@ -8,7 +8,7 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 import Listr from 'listr';
-import { commandSync } from 'execa';
+import { execaCommandSync } from 'execa';
 import { promisify } from 'util';
 
 import fsService from '../utils/fs.service.js';
@@ -107,7 +107,7 @@ const checkExtraScripts = (scripts, tasks_list) => {
 
                     try {
                         // Execute the script command using execaCommandSync
-                        commandSync(script_cmd);
+                        execaCommandSync(script_cmd);
                         // Log success message
                         console.log(`\n%s Pre script ${script.name} finished!`, chalk.hex(PROMPTS.success.color).bold(PROMPTS.success.message));
                     } catch (error) {
@@ -142,7 +142,7 @@ async function execute(command, options, oak_config) {
                 console.log(`\n%s`, chalk.bold(command));
 
                 try {
-                    commandSync(command);
+                    execaCommandSync(command);
                     console.log(`\n%s The ${leaf} has been succesfully created!`, chalk.hex(PROMPTS.success.color).bold(PROMPTS.success.message));
                 } catch (error) {
                     console.error(`%s An error occurred while generating the ${leaf}`, chalk.hex(PROMPTS.error.color).bold(PROMPTS.error.message));
