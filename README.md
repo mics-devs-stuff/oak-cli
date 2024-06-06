@@ -1,6 +1,6 @@
 # Oak CLI
 
-Oak is a Node CLI application that provides a set of commands to manage and validate configuration files.
+Oak is a configurable Node CLI application that helps you build CLI commands based on your project configuration (tree).
 
 ## Getting Started
 
