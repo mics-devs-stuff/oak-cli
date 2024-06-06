@@ -1,6 +1,6 @@
 {
   	"name": "@michelangelo-devs/oak-cli",
-  	"version": "0.9.3",
+  	"version": "0.9.8.1",
   	"description": "Oak CLI, a tool for your codebase <3",
   	"exports": "./src/main.js",
 	"bin": {
