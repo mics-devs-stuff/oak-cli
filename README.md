@@ -2,6 +2,8 @@
 
 Oak is a configurable Node CLI application that helps you build CLI commands based on your project configuration (tree).
 
+NOTE: This package requires at least node `18.18`
+
 ## Getting Started
 
 To get started with Oak, you'll need to initialize the configuration file using the `init` command.
