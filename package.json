@@ -1,6 +1,6 @@
 {
   	"name": "@michelangelo-devs/oak-cli",
-  	"version": "0.9.8.1",
+  	"version": "0.9.9",
   	"description": "Oak CLI, a tool for your codebase <3",
   	"exports": "./src/main.js",
 	"bin": {
@@ -25,7 +25,7 @@
   	  	"cfonts": "^3.2.0",
   	  	"chalk": "^5.0.1",
   	  	"esm": "^3.2.25",
-  	  	"execa": "^5.1.1 || ^6.1.0 || ^7.1.0",
+  	  	"execa": "^9.1.0",
   	  	"inquirer": "^9.2.23",
   	  	"joi": "^17.6.0",
   	  	"listr": "^0.14.3",
